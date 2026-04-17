@@ -11,4 +11,7 @@
  *
  * This file exists only as documentation. You can safely delete it
  * from your own plugin.
+ * 
+ * See 'php runway plugins:info [vendor]/[package] classes' for all available
+ * classes.
  */

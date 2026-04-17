@@ -26,50 +26,27 @@ namespace Enlivenapp\HelloWorldPlugin\Controllers;
 
 use flight\Engine;
 
-/**
- * Handles requests for the Hello World plugin's routes.
- *
- * The constructor receives the FlightPHP app, which gives every
- * method access to things like responses and view rendering.
- * Plugin config is also read in the constructor and saved to
- * $this->config so any method can use it.
- */
 class HelloController
 {
-    /** @var Engine The FlightPHP app instance. */
     protected Engine $app;
-
-    /** @var array Plugin config, stored here so any method can use it. */
     protected array $config;
 
     /**
-     * Set up the controller with the app and plugin config.
-     *
-     * For routes that use [Class, 'method'] syntax (like /hola and
-     * /hallo), Flight creates the controller and passes in the app
-     * automatically. For routes that use a function (like / and /hello),
-     * Config/Routes.php creates the controller with `new HelloController($app)`.
-     *
-     * Either way, we grab the plugin config here and save it to
-     * $this->config so it's available to any method that needs it.
-     *
      * @param Engine $app The FlightPHP app instance.
      */
     public function __construct(Engine $app)
     {
         $this->app = $app;
-        // Fall back to a default if the config wasn't set by Config.php.
-        // We added the fallback to make sure the plugin doesn't fail,
-        // this usually isn't required.
-        $this->config = $app->get('enlivenapp.hello-world-plugin') ?? ['greeting' => 'Hello World!'];
+        $this->config = $app->get('enlivenapp.hello-world-plugin');
     }
 
     /**
-     * GET /hello-world/hola returns JSON.
+     * Return the greeting as JSON using config cached in the constructor.
      *
-     * Gets the greeting from $this->config, which was set in __construct().
-     * This is useful when multiple methods need the same values. Read
-     * them once and reuse them.
+     * Shows how to read config once in __construct() and reuse it
+     * across multiple methods via $this->config.
+     *
+     * @return void
      */
     public function hola(): void
     {
@@ -82,18 +59,13 @@ class HelloController
     }
 
     /**
-     * GET /hello-world and /hello-world/hello renders an HTML view.
+     * Render the greeting as an HTML view.
      *
-     * The greeting is passed in from Config/Routes.php when the route
-     * calls this method. See the route for / and /hello in that file.
+     * Shows how Routes.php can read a config value and pass it
+     * into a controller method as a parameter.
      *
-     * The view can be overridden by the host app. A ready-to-use
-     * override template is included with the plugin at:
-     *   vendor/enlivenapp/hello-world-plugin/src/Views/app-override-index.php
-     * Copy it to:
-     *   app/views/enlivenapp/hello-world-plugin/index.php
-     *
-     * @param string $greeting The greeting to display.
+     * @param string $greeting The greeting text to display.
+     * @return void
      */
     public function hello(string $greeting): void
     {
@@ -103,11 +75,12 @@ class HelloController
     }
 
     /**
-     * GET /hello-world/hallo returns JSON (German greeting).
+     * Return the greeting as JSON by reading config on demand.
      *
-     * Gets the greeting by reading it from the app with
-     * $this->app->get(). This is a simple way to grab a value
-     * when you only need it in one method.
+     * Shows how to read config directly from $app->get() in the
+     * method itself, without caching it in the constructor.
+     *
+     * @return void
      */
     public function hallo(): void
     {

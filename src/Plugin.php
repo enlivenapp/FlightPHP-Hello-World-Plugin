@@ -28,19 +28,20 @@ use Enlivenapp\FlightSchool\PluginInterface;
 use flight\Engine;
 use flight\net\Router;
 
-/**
- * Plugin entry point (optional).
- *
- * The PluginLoader calls register() after loading all Config/ files.
- * Use it for anything that doesn't fit in a config, services, or
- * routes file. For this plugin, there's nothing extra to do.
- */
 class Plugin implements PluginInterface
 {
+    /**
+     * Called by the PluginLoader after all Config/ files are loaded.
+     *
+     * Use this for custom setup that doesn't belong in Config/ files
+     * (events, middleware, etc.). This plugin has nothing extra to do.
+     *
+     * @param Engine $app    The FlightPHP app instance.
+     * @param Router $router The FlightPHP router.
+     * @param array  $config The config array returned by Config/Config.php.
+     * @return void
+     */
     public function register(Engine $app, Router $router, array $config = []): void
     {
-        // Nothing to do. Config/Config.php and Routes.php handle everything.
-        // This method exists as an example. If your plugin needs custom
-        // setup (events, middleware, etc.), do it here.
     }
 }

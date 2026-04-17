@@ -3,25 +3,27 @@
 /**
  * Config for the Hello World plugin.
  *
- * The PluginLoader includes this file and stores the returned array
- * on $app under the $configPrepend key. Access it anywhere with:
+ * $configPrepend — the key your config is stored under on $app.
+ *   Default: 'enlivenapp.hello-world-plugin' (vendor/package)
  *
- *   $app->get('hello-world')           // whole array
- *   $app->get('hello-world.greeting')  // single value (if Flight supports dot access)
+ * $routePrepend — the URL prefix for all your routes.
+ *   Default: 'enlivenapp_hello_world_plugin' (vendor/package)
  *
- * Collision avoidance:
- *   Set $configPrepend and $routePrepend to override the defaults.
- *   If not set, the PluginLoader derives them from the package name:
- *     - Config default: enlivenapp.hello-world-plugin
- *     - Route default:  enlivenapp_hello_world_plugin
+ * Set either one to override the default. Leave them unset to
+ * use the defaults.
+ *
+ * return []; Returns your config values as an array. They get stored on $app
+ * so you can read them anywhere in your plugin:
  *
  * @var \flight\Engine $app
  */
 
-// Optional: override the auto-generated collision avoidance prefixes.
-// Remove these lines to use the defaults derived from the package name.
-//$configPrepend = 'hello-world';
+// Routes at /hello-world/* instead of /enlivenapp_hello_world_plugin/*
 $routePrepend = 'hello-world';
+
+// Uncomment to store config under 'hello-world' instead of
+// 'enlivenapp.hello-world-plugin':
+//$configPrepend = 'hello-world';
 
 return [
     'greeting' => 'Hello from a vendor plugin!',

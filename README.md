@@ -8,7 +8,7 @@ A reference plugin for FlightPHP apps using the [FlightSchool](https://github.co
 - Defining routes that get auto-prefixed by the PluginLoader (Config/Routes.php)
 - Three different ways to get a config value into a controller method
 - Providing views that the host app can override
-- creating runway commands
+- Creating runway commands
 
 ## Config and route prefixes
 
@@ -60,7 +60,18 @@ When Composer installs the plugin, FlightSchool adds an entry to `app/config/con
 
 To activate the plugin, change `'enabled'` to `true`.
 
-Config values live in `src/Config/Config.php`. The PluginLoader stores the returned array on `$app` automatically. To change a value, edit that file directly.
+Config values live in `src/Config/Config.php`. The PluginLoader stores the returned array on `$app` under the config prepend key. To change a value, edit that file directly.
+
+## Reading config
+
+`$app` is available in Config/ files, Routes.php, and controllers (passed to the constructor). Read the full config array, then index into it:
+
+```php
+$config = $app->get('enlivenapp.hello-world-plugin');
+$greeting = $config['greeting'];
+```
+
+Models and services don't receive `$app` automatically — pass the values they need as parameters.
 
 ## Routes
 
@@ -71,7 +82,7 @@ The PluginLoader wraps all routes in a prefix group automatically. With the defa
 | GET `/enlivenapp_hello_world_plugin` | HTML view | Passed as a method parameter from Routes.php |
 | GET `/enlivenapp_hello_world_plugin/hola` | JSON | Reads `$this->config` (set in the constructor) |
 | GET `/enlivenapp_hello_world_plugin/hello` | HTML view | Passed as a method parameter from Routes.php |
-| GET `/enlivenapp_hello_world_plugin/hallo` | JSON | Reads directly from the app with `$app->get()` |
+| GET `/enlivenapp_hello_world_plugin/hallo` | JSON | Reads config from `$app->get()` in the method |
 
 With `$routePrepend = 'hello-world'` uncommented, routes become `/hello-world`, `/hello-world/hola`, etc.
 

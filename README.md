@@ -1,3 +1,9 @@
+[![Version](http://poser.pugx.org/enlivenapp/hello-world-plugin/version)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
+[![License](http://poser.pugx.org/enlivenapp/hello-world-plugin/license)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
+[![Suggesters](http://poser.pugx.org/enlivenapp/hello-world-plugin/suggesters)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
+[![PHP Version Require](http://poser.pugx.org/enlivenapp/hello-world-plugin/require/php)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
+[![Monthly Downloads](https://poser.pugx.org/enlivenapp/hello-world-plugin/d/monthly)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
+
 # Hello World Plugin
 
 A reference plugin for FlightPHP apps using the [FlightSchool](https://github.com/enlivenapp/FlightPHP-Flight-School) plugin loader. Use it as a starting point when building your own plugin.

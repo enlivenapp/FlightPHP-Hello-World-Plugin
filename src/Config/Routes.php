@@ -37,7 +37,7 @@ $greeting = $app->get($configPrepend)['greeting'];
 //   /enlivenapp_hello_world_plugin/hello
 //   /enlivenapp_hello_world_plugin/hallo
 //
-// If you uncomment $routePrepend = 'hello-world' in Config.php:
+// If you set 'routePrepend' => 'hello-world' in Config.php:
 //   /hello-world/
 //   /hello-world/hola
 //   /hello-world/hello

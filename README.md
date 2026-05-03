@@ -1,8 +1,12 @@
-[![Version](http://poser.pugx.org/enlivenapp/hello-world-plugin/version)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
-[![License](http://poser.pugx.org/enlivenapp/hello-world-plugin/license)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
-[![Suggesters](http://poser.pugx.org/enlivenapp/hello-world-plugin/suggesters)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
-[![PHP Version Require](http://poser.pugx.org/enlivenapp/hello-world-plugin/require/php)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
-[![Monthly Downloads](https://poser.pugx.org/enlivenapp/hello-world-plugin/d/monthly)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
+[![Stable? Not Quite Yet](https://img.shields.io/badge/stable%3F-not%20quite%20yet-blue?style=for-the-badge)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
+[![License](https://img.shields.io/packagist/l/enlivenapp/hello-world-plugin?style=for-the-badge)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
+[![PHP Version](https://img.shields.io/packagist/php-v/enlivenapp/hello-world-plugin?style=for-the-badge)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
+[![Monthly Downloads](https://img.shields.io/packagist/dm/enlivenapp/hello-world-plugin?style=for-the-badge)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
+[![Total Downloads](https://img.shields.io/packagist/dt/enlivenapp/hello-world-plugin?style=for-the-badge)](https://packagist.org/packages/enlivenapp/hello-world-plugin)
+[![GitHub Issues](https://img.shields.io/github/issues/enlivenapp/FlightPHP-Hello-World-Plugin?style=for-the-badge)](https://github.com/enlivenapp/FlightPHP-Hello-World-Plugin/issues)
+[![Contributors](https://img.shields.io/github/contributors/enlivenapp/FlightPHP-Hello-World-Plugin?style=for-the-badge)](https://github.com/enlivenapp/FlightPHP-Hello-World-Plugin/graphs/contributors)
+[![Latest Release](https://img.shields.io/github/v/release/enlivenapp/FlightPHP-Hello-World-Plugin?style=for-the-badge)](https://github.com/enlivenapp/FlightPHP-Hello-World-Plugin/releases)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-blue?style=for-the-badge)](https://github.com/enlivenapp/FlightPHP-Hello-World-Plugin/pulls)
 
 # Hello World Plugin
 
@@ -25,7 +29,7 @@ The PluginLoader auto-prefixes config keys and routes based on the package name 
 | **Config key** | `enlivenapp.hello-world-plugin` | `hello-world` |
 | **Route prefix** | `/enlivenapp_hello_world_plugin` | `/hello-world` |
 
-To use the shorter versions, uncomment `$configPrepend` and `$routePrepend` in `src/Config/Config.php`.
+To use the shorter versions, set `configPrepend` and `routePrepend` inside the returned array in `src/Config/Config.php`.
 
 ## Plugin structure
 
@@ -68,9 +72,23 @@ To activate the plugin, change `'enabled'` to `true`.
 
 Config values live in `src/Config/Config.php`. The PluginLoader stores the returned array on `$app` under the config prepend key. To change a value, edit that file directly.
 
+## Flight School config
+
+This package uses Flight School's return-array config format. `src/Config/Config.php` returns the package defaults as an array, Flight School stores that array under `enlivenapp.hello-world-plugin` on `$app`, and prepend overrides belong inside that returned array instead of as standalone variables.
+
+The current example uses:
+
+```php
+return [
+    // 'configPrepend' => 'hello-world',
+    'routePrepend' => 'hello-world',
+    'greeting' => 'Hello from a vendor plugin!',
+];
+```
+
 ## Reading config
 
-`$app` is available in Config/ files, Routes.php, and controllers (passed to the constructor). Read the full config array, then index into it:
+`$app` is available in Config/ files, route files, and controllers (passed to the constructor). Read the full config array, then index into it:
 
 ```php
 $config = $app->get('enlivenapp.hello-world-plugin');
@@ -90,7 +108,7 @@ The PluginLoader wraps all routes in a prefix group automatically. With the defa
 | GET `/enlivenapp_hello_world_plugin/hello` | HTML view | Passed as a method parameter from Routes.php |
 | GET `/enlivenapp_hello_world_plugin/hallo` | JSON | Reads config from `$app->get()` in the method |
 
-With `$routePrepend = 'hello-world'` uncommented, routes become `/hello-world`, `/hello-world/hola`, etc.
+With `'routePrepend' => 'hello-world'` set in the returned config array, routes become `/hello-world`, `/hello-world/hola`, etc.
 
 ## Overriding views
 
